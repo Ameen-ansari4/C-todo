@@ -39,5 +39,24 @@ int main(int argc,char* argv[]){
 		}
 		fclose(fp);
 	}
+
+//Add tasks to the file
+	else if(strcmp(argv[1],"add") == 0){
+		fp = fopen(".tasks","a");
+		if(fp != NULL){
+			printf("Enter new task: ");
+			fgets(buff,sizeof(buff),stdin);
+			//strcat(buff,"\n");
+			fputs(buff, fp);
+			printf("One task Added\n");
+		}
+		else{
+			printf("Error: Can't add task\n");
+			exit(1);
+		}
+		fclose(fp);
+	}
+
+
 	return 0;
 }
