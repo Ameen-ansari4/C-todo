@@ -5,6 +5,7 @@
 #define TOTAL_TASK 200
 
 
+void showtask(FILE *fp, char buff[]);
 
 int main(int argc,char* argv[]){
 
@@ -30,17 +31,7 @@ int main(int argc,char* argv[]){
 
 //show todo list, read from .tasks
 	if(strcmp(argv[1], "show") == 0){
-		fp = fopen(".tasks", "r");
-		if(fp != NULL){
-			while((c=fgetc(fp)) != EOF){
-				printf("%c", c);
-			}
-		}
-		else{
-			printf("Error: Cant't access tasks\n");
-			exit(1);
-		}
-		fclose(fp);
+		showtask(fp, buff);
 	}
 
 //Add tasks to the file
@@ -103,6 +94,24 @@ int main(int argc,char* argv[]){
 		printf("No taks to delete!\n");
 		else printf("One task deleted!\n");
 	}
-
 	return 0;
+}
+
+void showtask(FILE * fp, char buff[]){
+
+	fp = fopen(".tasks", "r");
+	if(fp == NULL){
+		printf("Can't Access Tasks!");
+		exit(1);
+	}
+
+	printf("---------------  YOUR TO-DO  APP --------------\n\n");
+	printf("TASKS :\n");
+
+	int i=1;
+	while(fgets(buff, BUFF_SIZE, fp) != NULL){
+		printf("%d. %s",i, buff);
+		i++;
+	}
+	fclose(fp);
 }
