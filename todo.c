@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define BUFF_SIZE 100
+#define TOTAL_TASK 200
+
 
 
 int main(int argc,char* argv[]){
 
 	FILE* fp, *tmp;
-	char buff[100];
+	char buff[BUFF_SIZE];
 	int c;
 
 // Check argument count if less than 2
@@ -45,7 +48,7 @@ int main(int argc,char* argv[]){
 		fp = fopen(".tasks","a");
 		if(fp != NULL){
 			printf("Enter new task: ");
-			fgets(buff,sizeof(buff),stdin);
+			fgets(buff,BUFF_SIZE,stdin);
 			//strcat(buff,"\n");
 			fputs(buff, fp);
 			printf("One task Added\n");
@@ -82,7 +85,7 @@ int main(int argc,char* argv[]){
 		}
 
 		//read and write in files
-		while(fgets(buff,100,fp) !=NULL){
+		while(fgets(buff,BUFF_SIZE,fp) !=NULL){
 			count++;
 			if(count == line)
 				continue;
