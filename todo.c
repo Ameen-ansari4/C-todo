@@ -6,6 +6,7 @@
 
 
 void showtask(FILE *fp, char buff[]);
+void addtask(FILE *fp, char buff[]);
 
 int main(int argc,char* argv[]){
 
@@ -19,16 +20,6 @@ int main(int argc,char* argv[]){
 		exit(1);
 	}
 
-/*
-// Open .tasks file for operations
-	fp = fopen(".tasks", "ar");
-	if(fp == NULL){
-		printf("can't access tasks\n");
-		exit(1);
-	}
-
-*/
-
 //show todo list, read from .tasks
 	if(strcmp(argv[1], "show") == 0){
 		showtask(fp, buff);
@@ -36,19 +27,7 @@ int main(int argc,char* argv[]){
 
 //Add tasks to the file
 	else if(strcmp(argv[1],"add") == 0){
-		fp = fopen(".tasks","a");
-		if(fp != NULL){
-			printf("Enter new task: ");
-			fgets(buff,BUFF_SIZE,stdin);
-			//strcat(buff,"\n");
-			fputs(buff, fp);
-			printf("One task Added\n");
-		}
-		else{
-			printf("Error: Can't add task\n");
-			exit(1);
-		}
-		fclose(fp);
+		addtask(fp, buff);
 	}
 //Delete tasks from the file
 	else if(strcmp(argv[1],"delete") == 0){
@@ -113,5 +92,21 @@ void showtask(FILE * fp, char buff[]){
 		printf("%d. %s",i, buff);
 		i++;
 	}
+	fclose(fp);
+}
+
+void addtask(FILE *fp, char buff[]){
+	fp = fopen(".tasks", "a");
+	if(fp == NULL){
+		printf("Can't add task!\n");
+		exit(1);
+	}
+
+	printf("	ENTER NEW TASK : ");
+	fgets(buff, BUFF_SIZE, stdin);
+
+	fputs(buff, fp);
+
+	printf("•••••••••• New Task Added ••••••••••\n");
 	fclose(fp);
 }
